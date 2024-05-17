@@ -1,0 +1,95 @@
+CREATE DATABASE IF NOT EXISTS fortes;
+USE fortes;
+
+create table if not exists Usuario(
+id_login varchar(15) primary key,
+login varchar(45) not null,
+senha varchar(45) not null
+);
+
+create table if not exists adm(
+id_adm varchar(15) primary key not null,
+login varchar(45) not null,
+senha varchar(45) not null
+);
+
+create table if not exists Pre_cadastro(
+id_pre_cadastro int primary key,
+nome varchar(45) not null,
+email varchar(45) not null,
+CNPJ varchar(45) not null,
+CEP varchar(11) not null,
+logradouro varchar(100) not null,
+bairro varchar(45) not null,
+cidade varchar(45) not null,
+adm varchar (15) not null,
+id_login varchar (15) not null,
+CONSTRAINT adm FOREIGN KEY(adm)
+REFERENCES adm(id_adm),
+CONSTRAINT login FOREIGN KEY(id_login)
+REFERENCES Usuario(id_login)
+);
+CREATE TABLE Financeiro (
+    idFinanceiro INT AUTO_INCREMENT PRIMARY KEY,
+    valor INT NOT NULL
+);
+CREATE TABLE proponente (
+    CNPJ INT PRIMARY KEY,
+    nome VARCHAR(45) NOT NULL,
+    email VARCHAR(45) NOT NULL,
+    telefone VARCHAR(45) NOT NULL,
+    CEP VARCHAR(45) NOT NULL,
+    logradouro VARCHAR(45) NOT NULL,
+    bairro VARCHAR(45) NOT NULL,
+    cidade VARCHAR(45) NOT NULL
+);
+CREATE TABLE responsavel_legal (
+    CPF INT PRIMARY KEY,
+    nome VARCHAR(45) NOT NULL,
+    orgao_expedidor VARCHAR(45) NOT NULL,
+    cargo_OSC VARCHAR(45) NOT NULL,
+    mandato DATE NOT NULL,
+    CEP VARCHAR(45) NOT NULL,
+    logradouro VARCHAR(45) NOT NULL,
+    bairro VARCHAR(45) NOT NULL,
+    cidade VARCHAR(45) NOT NULL,
+    telefone VARCHAR(45) NOT NULL,
+    resposavel_proponente INT not null,
+    FOREIGN KEY (resposavel_proponente) REFERENCES proponente (CNPJ)
+);
+
+CREATE TABLE projeto (
+    idProjeto INT AUTO_INCREMENT PRIMARY KEY,
+    areaAtuacao ENUM('Educação', 'Saúde', 'Meio Ambiente', 'Cultura', 'Esportes', 'Outros') NOT NULL,
+    descricao TEXT NOT NULL,
+    principaisAcoes TEXT NOT NULL,
+    publicoAlvo TEXT NOT NULL,
+    regioesAlcancaveis TEXT NOT NULL,
+    infraestrutura TEXT NOT NULL,
+    equipe TEXT NOT NULL,
+    resumoProjeto TEXT NOT NULL,
+    financeiro_idFinanceiro INT,
+    proponente_CNPJ INT,
+    preCadastro_idPreCadastro INT NOT NULL,
+    FOREIGN KEY (financeiro_idFinanceiro) REFERENCES Financeiro(idFinanceiro),
+    FOREIGN KEY (proponente_CNPJ) REFERENCES proponente(CNPJ),
+    FOREIGN KEY (preCadastro_idPreCadastro) REFERENCES Pre_cadastro(id_pre_cadastro)
+);
+CREATE TABLE Responsavel_pj (
+    id_responsavel_pj INT AUTO_INCREMENT PRIMARY KEY,
+    nome VARCHAR(45) NOT NULL,
+    orgao_expedidor VARCHAR(45) NOT NULL,
+    cargo VARCHAR(45) NOT NULL,
+    mandato DATE NOT NULL,
+    cep VARCHAR(45) NOT NULL,
+    logradouro VARCHAR(45) NOT NULL,
+    bairro VARCHAR(45) NOT NULL,
+    cidade VARCHAR(45) NOT NULL,
+    estado VARCHAR(45) NOT NULL,
+    projeto_id INT NOT NULL,
+    FOREIGN KEY (projeto_id) REFERENCES projeto(idProjeto)
+);
+
+
+
+
