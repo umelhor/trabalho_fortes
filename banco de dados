@@ -30,7 +30,7 @@ CONSTRAINT login FOREIGN KEY(id_login)
 REFERENCES Usuario(id_login)
 );
 CREATE TABLE Financeiro (
-    idFinanceiro INT AUTO_INCREMENT PRIMARY KEY,
+    idFinanceiro INT PRIMARY KEY NOT NULL,
     valor INT NOT NULL
 );
 CREATE TABLE proponente (
@@ -68,8 +68,8 @@ CREATE TABLE projeto (
     infraestrutura TEXT NOT NULL,
     equipe TEXT NOT NULL,
     resumoProjeto TEXT NOT NULL,
-    financeiro_idFinanceiro INT,
-    proponente_CNPJ INT,
+    financeiro_idFinanceiro INT NOT NULL,
+    proponente_CNPJ INT not null,
     preCadastro_idPreCadastro INT NOT NULL,
     FOREIGN KEY (financeiro_idFinanceiro) REFERENCES Financeiro(idFinanceiro),
     FOREIGN KEY (proponente_CNPJ) REFERENCES proponente(CNPJ),
@@ -89,6 +89,7 @@ CREATE TABLE Responsavel_pj (
     projeto_id INT NOT NULL,
     FOREIGN KEY (projeto_id) REFERENCES projeto(idProjeto)
 );
+
 
 
 
