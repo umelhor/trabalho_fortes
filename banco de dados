@@ -31,7 +31,7 @@ REFERENCES Usuario(id_login)
 );
 CREATE TABLE Financeiro (
     idFinanceiro INT PRIMARY KEY NOT NULL,
-    valor INT NOT NULL
+    valor DECIMAL(10,2) NOT NULL
 );
 CREATE TABLE proponente (
     CNPJ INT PRIMARY KEY,
@@ -68,7 +68,7 @@ CREATE TABLE projeto (
     infraestrutura TEXT NOT NULL,
     equipe TEXT NOT NULL,
     resumoProjeto TEXT NOT NULL,
-    financeiro_idFinanceiro INT NOT NULL,
+    financeiro_idFinanceiro DECIMAL(10,2) NOT NULL,
     proponente_CNPJ INT not null,
     preCadastro_idPreCadastro INT NOT NULL,
     FOREIGN KEY (financeiro_idFinanceiro) REFERENCES Financeiro(idFinanceiro),
