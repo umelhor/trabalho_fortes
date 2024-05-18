@@ -68,7 +68,7 @@ CREATE TABLE projeto (
     infraestrutura TEXT NOT NULL,
     equipe TEXT NOT NULL,
     resumoProjeto TEXT NOT NULL,
-    financeiro_idFinanceiro DECIMAL(10,2) NOT NULL,
+    financeiro_idFinanceiro int NOT NULL,
     proponente_CNPJ INT not null,
     preCadastro_idPreCadastro INT NOT NULL,
     FOREIGN KEY (financeiro_idFinanceiro) REFERENCES Financeiro(idFinanceiro),
